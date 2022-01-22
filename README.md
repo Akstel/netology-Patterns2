@@ -1,1 +1,1 @@
-### Сборка билда ----> 
+### Сборка билда ----> [![Build status](https://ci.appveyor.com/api/projects/status/d6bujpu95bpvbogj/branch/master?svg=true)](https://ci.appveyor.com/project/Akstel/netology-patterns2/branch/master)
