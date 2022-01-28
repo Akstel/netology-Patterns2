@@ -2,13 +2,11 @@ package ru.netology.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-
 public class AuthorizationTest {
 
     @BeforeEach
@@ -29,8 +27,7 @@ public class AuthorizationTest {
     @Test
     void shouldVerifyWrongLoginOfActiveUsers() {
         CustomerData customerData = DataGenerator.Authorization.registrationUsers("active");
-        $("[data-test-id='login'] input").setValue(DataGenerator.Authorization
-                .generateAuthorization("active").getLogin());
+        $("[data-test-id='login'] input").setValue(DataGenerator.Authorization.generateRandomLogin());
         $("[data-test-id='password'] input").setValue(customerData.getPassword());
         $(withText("Продолжить")).click();
         $("[data-test-id='error-notification'] .notification__content").shouldBe(visible)
@@ -40,7 +37,7 @@ public class AuthorizationTest {
     @Test
     void shouldVerifyWrongPasswordOfActiveUsers() {
         CustomerData customerData = DataGenerator.Authorization.registrationUsers("active");
-        $("[data-test-id='login'] input").setValue(customerData.getLogin());
+        $("[data-test-id='login'] input").setValue(DataGenerator.Authorization.generateRandomLogin());
         $("[data-test-id='password'] input").setValue(DataGenerator.Authorization
                 .generateAuthorization("active").getPassword());
         $(withText("Продолжить")).click();

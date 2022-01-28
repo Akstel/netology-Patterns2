@@ -7,15 +7,9 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import static io.restassured.RestAssured.given;
-
 import java.util.Locale;
 
-@Data
-@AllArgsConstructor
 
 public class DataGenerator {
     public static class Authorization {
@@ -31,29 +25,29 @@ public class DataGenerator {
                 .build();
 
         public static CustomerData registrationUsers(String status) {
-            CustomerData customerData = generateAuthorization("active");
+            CustomerData customerInfo = generateAuthorization("active");
             Gson gsonBuilder = new GsonBuilder().create();
-            String CustomerData = gsonBuilder.toJson(customerData);
+            String customerData = gsonBuilder.toJson(customerInfo);
             given()
                     .spec(requestSpec)
-                    .body(CustomerData)
+                    .body(customerData)
                     .when()
                     .post("/api/system/users")
                     .then()
                     .statusCode(200);
-            return customerData;
+            return customerInfo;
         }
         public static CustomerData generateAuthorization(String status) {
             Faker faker = new Faker(new Locale("en"));
-            return new CustomerData(wrongLogin(), wrongPassword(), status);
+            return new CustomerData(generateRandomLogin(), generateRandomPassword(), status);
         }
 
-        private static String wrongPassword() {
+        private static String generateRandomPassword() {
             Faker faker = new Faker(new Locale("en"));
             return faker.internet().password();
         }
 
-        private static String wrongLogin() {
+        static String generateRandomLogin() {
             Faker faker = new Faker(new Locale("en"));
             return faker.name().username();
         }
