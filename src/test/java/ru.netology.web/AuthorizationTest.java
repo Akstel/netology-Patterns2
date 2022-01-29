@@ -7,6 +7,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static ru.netology.web.DataGenerator.Authorization.generateRandomPassword;
+
 public class AuthorizationTest {
 
     @BeforeEach
@@ -27,8 +29,8 @@ public class AuthorizationTest {
     @Test
     void shouldVerifyWrongLoginOfActiveUsers() {
         CustomerData customerData = DataGenerator.Authorization.registrationUsers("active");
-        $("[data-test-id='login'] input").setValue(DataGenerator.Authorization.generateRandomLogin());
-        $("[data-test-id='password'] input").setValue(customerData.getPassword());
+        $("[data-test-id='login'] input").setValue(customerData.getLogin());
+        $("[data-test-id='password'] input").setValue(generateRandomPassword());
         $(withText("Продолжить")).click();
         $("[data-test-id='error-notification'] .notification__content").shouldBe(visible)
                 .shouldHave(text("Неверно указан логин или пароль"));
