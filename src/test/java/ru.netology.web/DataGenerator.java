@@ -42,7 +42,7 @@ public class DataGenerator {
             return new CustomerData(generateRandomLogin(), generateRandomPassword(), status);
         }
 
-        private static String generateRandomPassword() {
+        public static String generateRandomPassword() {
             Faker faker = new Faker(new Locale("en"));
             return faker.internet().password();
         }
